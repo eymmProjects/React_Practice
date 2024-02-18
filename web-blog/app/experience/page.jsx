@@ -1,8 +1,9 @@
 import Image from "next/image";
-import styles from "./page.module.css";
-import Header from "./_components/Header";
-import HeroSection from "./_components/HeroSection";
-import InfoBlock from "./_components/InfoBlock";
+import styles from "../../sass/main.scss";
+import Header from ".././_components/Header";
+import HeroSection from ".././_components/HeroSection";
+import InfoBlock from "../_components/InfoBlock";
+// import InfoBlock from "./_components/InfoBlock";
 // import { fetchDataFromStrapi, processInfoBlocks } from "@/utils/strapi.utils";
 
 const infoBlockData = {
@@ -14,7 +15,7 @@ const infoBlockData = {
       sunt rem eveniet architecto
     </p>
   ),
-  button: <button className="btn btn--turquoise">Book now</button>,
+  button: <button className="btn btn--orange">Book now</button>,
   reversed: false,
 };
 
@@ -24,15 +25,18 @@ export default function Home() {
   const heroHeadline = (
     // const data = await fetchData
     <>
-      <h1>barrel.</h1>
-      <h1>barrel.</h1>
-      <h1>barrel.</h1>
+      <h1>barrel 1.</h1>
+      <h1>barrel 1.</h1>
+      <h1>barrel 1.</h1>
     </>
   );
 
   return (
     <main>
-      <HeroSection headline={heroHeadline} />
+      <HeroSection
+        imgSrc="/assets/hero-experience.png"
+        headline={heroHeadline}
+      />
       {/* {infoBlockData.map((data) => (
         <InfoBlock key={data.id} data={data} />
       ))} */}
