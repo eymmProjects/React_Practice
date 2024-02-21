@@ -6,6 +6,7 @@ import { fetchDataFromStrapi, processInfoBlocks } from "@/utils/strapi.utils";
 export default async function Home() {
   const data = await fetchDataFromStrapi("infoblocks-landing?populate=deep");
   const infoBlockData = processInfoBlocks(data);
+  console.log(infoBlockData);
 
   const heroHeadline = (
     <>
