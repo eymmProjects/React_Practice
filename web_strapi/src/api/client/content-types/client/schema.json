@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "clients",
+  "info": {
+    "singularName": "client",
+    "pluralName": "clients",
+    "displayName": "Client",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fristName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "phonenumber": {
+      "type": "string",
+      "required": true
+    },
+    "isGeneralInterest": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "messageUs": {
+      "type": "richtext"
+    }
+  }
+}

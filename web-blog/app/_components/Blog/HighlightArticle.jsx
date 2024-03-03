@@ -11,7 +11,13 @@ const HighlightArticle = ({ data }) => {
           Read more
         </Link>
       </div>
-      <img className="highlight-article__image" src={featuredImage} alt="" />
+
+      {/* src={imageSrc || "/info-blocks/rectangle.png"} */}
+      <img
+        className="highlight-article__image"
+        src={featuredImage || "/info-blocks/rectangle.png"}
+        alt=""
+      />
     </article>
   );
 };

@@ -10,7 +10,7 @@ const HeroSection = ({ imgSrc, headline, theme = "turquoise" }) => {
         {headline}
       </div>
       <button className={`btn btn--medium btn--${theme}`}>
-        <Link href="/events">BOOK NOW</Link>
+        <Link href="/works">BOOK NOW</Link>
       </button>
       <img
         className={`hero__logo hero__logo--${theme}`}

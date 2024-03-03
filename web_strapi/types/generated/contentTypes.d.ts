@@ -676,6 +676,52 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiBlogArticleBlogArticle extends Schema.CollectionType {
+  collectionName: 'blog_articles';
+  info: {
+    singularName: 'blog-article';
+    pluralName: 'blog-articles';
+    displayName: 'Blog Article';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    headline: Attribute.String & Attribute.Required;
+    excerpt: Attribute.Text & Attribute.Required;
+    featuredImage: Attribute.Media & Attribute.Required;
+    slug: Attribute.String & Attribute.Required & Attribute.Unique;
+    author: Attribute.String & Attribute.Required;
+    isHighlightArticle: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    articleContent: Attribute.DynamicZone<
+      [
+        'blog-article.headline',
+        'blog-article.paragraph-w-ith-image',
+        'blog-article.paragraph',
+        'blog-article.landscape-image'
+      ]
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::blog-article.blog-article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::blog-article.blog-article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiCampCamp extends Schema.CollectionType {
   collectionName: 'camps';
   info: {
@@ -695,6 +741,73 @@ export interface ApiCampCamp extends Schema.CollectionType {
     createdBy: Attribute.Relation<'api::camp.camp', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::camp.camp', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiClientClient extends Schema.CollectionType {
+  collectionName: 'clients';
+  info: {
+    singularName: 'client';
+    pluralName: 'clients';
+    displayName: 'Client';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    fristName: Attribute.String & Attribute.Required;
+    lastName: Attribute.String & Attribute.Required;
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    phonenumber: Attribute.String & Attribute.Required;
+    isGeneralInterest: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    messageUs: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::client.client',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiContactUsContactUs extends Schema.CollectionType {
+  collectionName: 'contact_uses';
+  info: {
+    singularName: 'contact-us';
+    pluralName: 'contact-uses';
+    displayName: 'Contact us';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    email: Attribute.Email & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contact-us.contact-us',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contact-us.contact-us',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -849,6 +962,34 @@ export interface ApiInfoblocksLandingInfoblocksLanding
   };
 }
 
+export interface ApiWorkWork extends Schema.CollectionType {
+  collectionName: 'works';
+  info: {
+    singularName: 'work';
+    pluralName: 'works';
+    displayName: 'Work';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    description: Attribute.RichText;
+    startingDate: Attribute.Date & Attribute.Required;
+    endDate: Attribute.Date & Attribute.Required;
+    singlePrice: Attribute.Integer & Attribute.Required;
+    sharedPrice: Attribute.Integer & Attribute.Required;
+    image: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::work.work', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::work.work', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Shared {
     export interface ContentTypes {
@@ -865,11 +1006,15 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::blog-article.blog-article': ApiBlogArticleBlogArticle;
       'api::camp.camp': ApiCampCamp;
+      'api::client.client': ApiClientClient;
+      'api::contact-us.contact-us': ApiContactUsContactUs;
       'api::info-block.info-block': ApiInfoBlockInfoBlock;
       'api::infoblocks-experience.infoblocks-experience': ApiInfoblocksExperienceInfoblocksExperience;
       'api::infoblocks-experience2.infoblocks-experience2': ApiInfoblocksExperience2InfoblocksExperience2;
       'api::infoblocks-landing.infoblocks-landing': ApiInfoblocksLandingInfoblocksLanding;
+      'api::work.work': ApiWorkWork;
     }
   }
 }

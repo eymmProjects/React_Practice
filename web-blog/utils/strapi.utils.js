@@ -73,3 +73,35 @@ export function formatDate(dateString) {
   };
   return date.toLocaleDateString("en-US", options);
 }
+
+export async function fetchBlogArticles() {
+  const blogData = await fetchDataFromStrapi("blog-articles?populate=deep");
+  const processedBlogArticles = blogData.map(processBlogArticle);
+
+  processedBlogArticles.sort(
+    (a, z) => new Date(z.publishedAt) - new Date(a.publishedAt)
+  );
+  return processedBlogArticles;
+}
+
+function processBlogArticle(article) {
+  return {
+    ...article.attributes,
+    id: article.id,
+    featuredImage:
+      BASE_URL + article.attributes?.featuredImage?.data[0]?.attributes?.url,
+  };
+}
+
+// return infoBlocksRaw.map((infoBlock) => {
+//   const imageInfo = infoBlock.attributes.image.data[0]?.attributes;
+//   const imageUrl = imageInfo.url;
+//   const fullImageUrl = BASE_URL + imageUrl;
+
+//   return {
+//     ...infoBlock.attributes,
+//     imageSrc: fullImageUrl,
+//     id: infoBlock.id,
+//     button: createInfoBlockButton(infoBlock.attributes.button),
+//   };
+// });
